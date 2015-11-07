@@ -6,14 +6,17 @@
 <style>
 .submitUrlForm {
   text-align : center;
-  margin-top: 10%;
+margin-top: 10%;
 }
 .table{
   margin-left:15%;
 }
 .downloadButtons{
   margin-left:15%;
-  text-align:center;
+  text-align: center;
+}
+#reportImageButton{
+  margin-left:5%;
 }
 </style>
 <body>
@@ -28,6 +31,10 @@
     </form>
     <div id="showImage">
       <img src="../static/images/wallpaper.jpg" width="300" height="300">
+      <div style="margin-top:2%;">
+        <button id="saveImageButton">Save Image</button>
+        <button id="reportImageButton">Report Image</button>    //button to report url
+      </div>
     </div>
   </div>
 </body>
