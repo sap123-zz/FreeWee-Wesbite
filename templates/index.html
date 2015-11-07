@@ -2,16 +2,44 @@
 <head>
   <title>Free download</title>
 </head>
+<script src="../static/js/jquery.min.js"></script>
 <style>
-.submitUrlform {
-  text-align :center;
-margin-top:15%;
+.submitUrlForm {
+  text-align : center;
+  margin-top: 10%;
+}
+.table{
+  margin-left:15%;
+}
+.downloadButtons{
+  margin-left:15%;
+  text-align:center;
 }
 </style>
 <body>
-  <form method="post">
-    <input type="text" name="url" placeholder="enter the url here">
-    <input type="submit" name="submitUrl" value="submitUrl">
-  </form>
+  <div class="table">
+    <button class="downloadButtons" id="instagramButton">Instragram</button>
+    <button class="downloadButtons" id="flickrButton">Flickr</button>
+  </div>
+  <div class="submitUrlForm">
+    <form method="post">
+      <input id="inputUrlField" type="text" name="url" placeholder="Enter Insta Pic URL">
+      <input type="submit" name="submitUrl" value="submitUrl">
+    </form>
+    <div id="showImage">
+      <img src="../static/images/wallpaper.jpg" width="300" height="300">
+    </div>
+  </div>
 </body>
+<script>
+$(document).ready(function(){
+  $("#instagramButton").click(function(){
+    $("#inputUrlField").attr("placeholder","Enter Insta Pic URL");
+  });
+  $("#flickrButton").click(function(){
+    $("#inputUrlField").attr("placeholder","Enter Flickr Pic URL");
+  });
+}); 
+// end of ready function
+</script>
 </html>
