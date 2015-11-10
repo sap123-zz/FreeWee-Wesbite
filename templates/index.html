@@ -29,13 +29,15 @@ margin-top: 10%;
       <input id="inputUrlField" type="text" name="url" placeholder="Enter Insta Pic URL">
       <input type="submit" name="submitUrl" value="submitUrl">
     </form>
+    {% if downloadUrl %}
     <div id="showImage">
-      <img src="../static/images/wallpaper.jpg" width="300" height="300">
+      <img src="{{notification}}" alt="Image Name" width="300" height="300">
       <div style="margin-top:2%;">
         <button id="saveImageButton">Save Image</button>
-        <button id="reportImageButton">Report Image</button>    //button to report url
+        <button id="reportImageButton">Report Image</button>  <!-- Button to report url -->
       </div>
     </div>
+    {% endif %}
   </div>
 </body>
 <script>
