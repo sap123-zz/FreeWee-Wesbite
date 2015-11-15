@@ -11,8 +11,8 @@ def index():
     notication = ""
     if request.method=='POST':
         url = str(request.form['url'])
-        #downloadUrl = DownloadPic(url)
-        #return render_template('index.html', downloadUrl = downloadUrl)
+        downloadUrl = DownloadPic(url)
+        return render_template('index.html', downloadUrl = downloadUrl)
         
     if request.method == 'GET':
         return render_template('index.html')

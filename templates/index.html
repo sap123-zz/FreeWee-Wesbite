@@ -4,9 +4,9 @@
 </head>
 <script src="../static/js/jquery.min.js"></script>
 <style>
-.submitUrlForm {
+.UrlForm {
   text-align : center;
-margin-top: 10%;
+  margin-top: 10%;
 }
 .table{
   margin-left:15%;
@@ -24,16 +24,16 @@ margin-top: 10%;
     <button class="downloadButtons" id="instagramButton">Instragram</button>
     <button class="downloadButtons" id="flickrButton">Flickr</button>
   </div>
-  <div class="submitUrlForm">
-    <form method="post">
-      <input id="inputUrlField" type="text" name="url" placeholder="Enter Insta Pic URL">
+  <div class="UrlForm">
+    <form method="post" id="submitUrlForm">
+      <input id="inputUrlField" type="text" name="url" placeholder="Enter Insta Pic URL" required> 
       <input type="submit" name="submitUrl" value="submitUrl">
     </form>
     {% if downloadUrl %}
     <div id="showImage">
-      <img src="{{notification}}" alt="Image Name" width="300" height="300">
+      <img src="{{ downloadUrl }}" alt="Image Name" width="300" height="300">
       <div style="margin-top:2%;">
-        <button id="saveImageButton">Save Image</button>
+        <a href="{{ downloadUrl }}"><button id="saveImageButton">Save Image</button></a>
         <button id="reportImageButton">Report Image</button>  <!-- Button to report url -->
       </div>
     </div>
@@ -48,6 +48,7 @@ $(document).ready(function(){
   $("#flickrButton").click(function(){
     $("#inputUrlField").attr("placeholder","Enter Flickr Pic URL");
   });
+
 }); 
 // end of ready function
 </script>
