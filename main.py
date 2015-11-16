@@ -10,9 +10,8 @@ app = Flask(__name__)
 def index():
     return 'hello'
 if __name__ == '__main__':
+  if IS_OPENSHIFT:
     app.run()
-   # if IS_OPENSHIFT:
-   #     app.run()
-   # else:
-   #     app.run(debug = True)
+  else:
+    app.run(debug = True)
 
