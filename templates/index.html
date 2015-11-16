@@ -1,0 +1,72 @@
+<html>
+<head>
+  <title>Free download</title>
+</head>
+<script src="../static/js/jquery.min.js"></script>
+<!-- bootstrap scripts-->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+<style>
+.UrlForm {
+  text-align : center;
+  margin-top: 10%;
+}
+.downloadButtons{
+  margin-top:2%;
+  text-align: center;
+}
+#reportImageButton{
+  margin-left:5%;
+}
+#inputUrlField{
+  width: 400px;
+}
+</style>
+<body>
+  <div class="container">
+    <center>
+      <button class="downloadButtons btn btn-primary" id="instagramButton">Instragram</button>
+      <button class="downloadButtons btn btn-primary" id="flickrButton">Flickr</button>
+    </center>
+    <div class="UrlForm">
+      <form class="form-inline" method="post" id="submitUrlForm">
+         <div class="form-group">
+            <input type="text" class="form-control" id="inputUrlField" name="url" placeholder="Enter Insta Pic URL" required>
+         </div>
+         <button class="btn btn-default" type="submit" name="submitUrl" onclick="moveDiv()">Submit URL</button>
+      </form>
+      {% if downloadUrl %}
+      <div id="showImage">
+        <img class="img-rounded" src="{{ downloadUrl }}" alt="Image Name" width="400" height="300">
+        <div style="margin-top:2%;">
+          <a href="{{ downloadUrl }}" download><button class="btn btn-success" id="saveImageButton">Save Image</button></a>
+          <a><button class="btn btn-warning" id="reportImageButton">Report Image</button></a> <!-- Button to report url -->
+        </div>
+        {% endif %}
+      </div>
+    </div>
+</body>
+<script>
+$(document).ready(function(){
+  $("#instagramButton").click(function(){
+    $("#inputUrlField").attr("placeholder","Enter Insta Pic URL");
+  });
+  $("#flickrButton").click(function(){
+    $("#inputUrlField").attr("placeholder","Enter Flickr Pic URL");
+  });
+
+}); 
+// end of ready function
+
+  function moveDiv(){
+    $("#UrlForm").css("margin-top",3%);
+  }
+</script>
+</html>
