@@ -1,6 +1,7 @@
 from flask import Flask,render_template,request,redirect
 app = Flask(__name__)
 
+import requests
 from bs4 import BeautifulSoup
 #from DownloadMethods import DownloadPic
 from Platform import IS_OPENSHIFT
