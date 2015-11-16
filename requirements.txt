@@ -1,6 +1,2 @@
-<<<<<<< HEAD
 Flask==0.10.1
 Requests>=2.5.1
-=======
-Flask=0.10.1
->>>>>>> 8f2768c1396fe95ad4c674ca699d2deca9b54f3f
