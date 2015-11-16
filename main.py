@@ -4,7 +4,11 @@ app = Flask(__name__)
 from DownloadMethods import DownloadPic
 from Platform import IS_OPENSHIFT
 
+<<<<<<< HEAD
 #url_extensions = ['.jpg','.png']
+=======
+url_extensions = ['.jpg','.png']
+>>>>>>> 8f2768c1396fe95ad4c674ca699d2deca9b54f3f
 
 @app.route('/',methods=['GET','POST'])
 def index():

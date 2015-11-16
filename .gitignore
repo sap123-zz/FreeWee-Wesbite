@@ -1,3 +1,10 @@
 *.pyc
+<<<<<<< HEAD
 *.swp
 static/
+=======
+*.pyc~
+*.swp
+/static
+
+>>>>>>> 8f2768c1396fe95ad4c674ca699d2deca9b54f3f
