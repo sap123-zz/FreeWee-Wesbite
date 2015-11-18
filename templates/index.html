@@ -46,7 +46,9 @@
       <div id="showImage">
         <img class="img-rounded" src="{{ downloadUrl }}" alt="Image Name" width="400" height="300">
         <div style="margin-top:2%;">
-          <a href="{{ downloadUrl }}" download><button class="btn btn-success" id="saveImageButton">Save Image</button></a>
+          <a href="{{ downloadUrl }}" download="img1.jpg" id="imageLink">
+            <button class="btn btn-success" id="saveImageButton">Save Image</button>
+          </a>
           <a><button class="btn btn-warning" id="reportImageButton">Report Image</button></a> <!-- Button to report url -->
         </div>
         {% endif %}
@@ -54,19 +56,27 @@
     </div>
 </body>
 <script>
+var date = new Date();
+var imgSrc = $("#imageLink").attr('src');
+imgName = 'INSTA_' + data.getHours() + date.getSeconds() + imgSrc.substring(imgSrc.lastIndexOf('.'));
+console.log(imgName);
+$("#imageLink").attr("download",imgName);
 $(document).ready(function(){
   $("#instagramButton").click(function(){
     $("#inputUrlField").attr("placeholder","Enter Insta Pic URL");
   });
+
   $("#flickrButton").click(function(){
     $("#inputUrlField").attr("placeholder","Enter Flickr Pic URL");
+  });
+ 
+  $("#saveImageButton").click(function(e){
+    console.log('glitch');
+    e.preventDefault();
   });
 
 }); 
 // end of ready function
 
-  function moveDiv(){
-    $("#UrlForm").css("margin-top",3%);
-  }
 </script>
 </html>
