@@ -79,6 +79,14 @@ margin-top: 10%;
 
   </body>
   <script>
+//javascript code to support .click() function in firefox 
+HTMLElement.prototype.click = function() {
+  var evt = this.ownerDocument.createEvent('MouseEvents');
+  evt.initMouseEvent('click', true, true, this.ownerDocument.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+  this.dispatchEvent(evt);
+}
+
+//start of documen.ready()
 $(document).ready(function(){
   $("#instagramButton").click(function(){
     $("#inputUrlField").attr("placeholder","Enter Insta Pic URL");
@@ -100,6 +108,7 @@ function CloseModalOnSave(){
   var url     = "download/v1?urlvalue="+ $("#imageLink").attr('href');
   var link    = document.createElement("a");
   link.href   = url;
+  link.id     = "downloadLink";
   link.click();
   $(".modal").modal("hide");
 
