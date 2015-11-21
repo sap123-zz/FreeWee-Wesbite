@@ -1,7 +1,9 @@
-from flask import Flask,render_template,request,redirect
+from io import BytesIO
+
+from flask import Flask,render_template,request,redirect,send_file
 app = Flask(__name__)
 
-from DownloadMethods import DownloadPic
+from DownloadMethods import DownloadPic, CreateDownload, GetFileName
 from Platform import IS_OPENSHIFT
 
 @app.route('/',methods=['GET','POST'])
@@ -13,6 +15,13 @@ def index():
         
     if request.method == 'GET':
         return render_template('index.html')
+
+@app.route('/download/v1', methods=['GET'])
+def DownloadImage():
+    url = request.args.get('urlvalue','')
+    resp = CreateDownload(url)
+    filename = GetFileName(url)
+    return send_file(BytesIO(resp), mimetype="image/jpeg", attachment_filename=filename, as_attachment=True)
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 # this file is to write functions to download from various sites
 import requests
-import datetime
+import datetime as time
 from bs4 import BeautifulSoup
 
 def GetFileExtension(URL):
@@ -9,12 +9,9 @@ def GetFileExtension(URL):
     if (i in URL):
       return i
 
-def CreateFileName(picUrl):
-  timenowInMilli = str(datetime.datetime.now().strftime("%s"))
-  extension = GetFileExtension(picUrl)
-  nameOfImage = 'static/images/'+timenowInMilli + extension
-  return str(nameOfImage)
-
+def GetFileName(url):
+    extension = GetFileExtension(url)
+    return 'Download_' + str(time.datetime.now().hour) + str(time.datetime.now().second) + extension
 
 def DownloadPic(url):
     imgDict = {}
@@ -24,9 +21,9 @@ def DownloadPic(url):
         _property = str(meta.get('property'))
         if _property == 'og:image':
             picUrl = str(meta.get('content'))
-            nameOfImage = CreateFileName(picUrl)
-            fileName = open(nameOfImage,'wb')
-            fileName.write(requests.get(picUrl).content)
-            imgDict = {'picURL': picUrl,'filelocation':nameOfImage}
+            imgDict = {'picURL': picUrl}
             return imgDict
 
+def CreateDownload(url):
+    resp = requests.get(url)
+    return resp.content
