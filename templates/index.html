@@ -2,7 +2,8 @@
   <head>
     <title>Free download</title>
   </head>
-  <script src="../static/js/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   <!-- bootstrap scripts-->
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
@@ -47,7 +48,7 @@ margin-top: 10%;
           <img class="img-rounded" src="{{ downloadUrl }}" alt="Image Name" width="400" height="300">
           <div style="margin-top:2%;">
             <a href="{{ downloadUrl }}" download="{{ downloadUrl }}" id="imageLink"></a>
-        <!-- Button trigger modal -->
+            <!-- Button trigger modal -->
             <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal" id="saveImageButton">
               Save Image
             </button>
@@ -66,7 +67,7 @@ margin-top: 10%;
               <h4 class="modal-title" id="myModalLabel">Download Pic ?</h4>
             </div>
             <div class="modal-body">
-              Hit <strong>Save</strong> to save the Pic!
+              Hit <strong>Save</strong> to Download the Pic!
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -88,7 +89,6 @@ $(document).ready(function(){
   });
 
   $("#saveImageButton").click(function(e){
-
     e.preventDefault();
   });
 
