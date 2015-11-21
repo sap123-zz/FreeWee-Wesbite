@@ -1,22 +1,22 @@
 <html>
-<head>
-  <title>Free download</title>
-</head>
-<script src="../static/js/jquery.min.js"></script>
-<!-- bootstrap scripts-->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  <head>
+    <title>Free download</title>
+  </head>
+  <script src="../static/js/jquery.min.js"></script>
+  <!-- bootstrap scripts-->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
-<style>
+  <style>
 .UrlForm {
   text-align : center;
-  margin-top: 10%;
+margin-top: 10%;
 }
 .downloadButtons{
   margin-top:2%;
@@ -28,39 +28,56 @@
 #inputUrlField{
   width: 400px;
 }
-</style>
-<body>
-  <div class="container">
-    <center>
-      <button class="downloadButtons btn btn-primary" id="instagramButton">Instragram</button>
-      <button class="downloadButtons btn btn-primary" id="flickrButton">Flickr</button>
-    </center>
-    <div class="UrlForm">
-      <form class="form-inline" method="post" id="submitUrlForm">
-         <div class="form-group">
+  </style>
+  <body>
+    <div class="container">
+      <center>
+        <button class="downloadButtons btn btn-primary" id="instagramButton">Instragram</button>
+        <button class="downloadButtons btn btn-primary" id="flickrButton">Flickr</button>
+      </center>
+      <div class="UrlForm">
+        <form class="form-inline" method="post" id="submitUrlForm">
+          <div class="form-group">
             <input type="text" class="form-control" id="inputUrlField" name="url" placeholder="Enter Insta Pic URL" required>
-         </div>
-         <button class="btn btn-default" type="submit" name="submitUrl" onclick="moveDiv()">Submit URL</button>
-      </form>
-      {% if downloadUrl %}
-      <div id="showImage">
-        <img class="img-rounded" src="{{ downloadUrl }}" alt="Image Name" width="400" height="300">
-        <div style="margin-top:2%;">
-          <a href="{{ downloadUrl }}" download="img1.jpg" id="imageLink">
-            <button class="btn btn-success" id="saveImageButton">Save Image</button>
-          </a>
-          <a><button class="btn btn-warning" id="reportImageButton">Report Image</button></a> <!-- Button to report url -->
+          </div>
+          <button class="btn btn-default" type="submit" name="submitUrl" onclick="moveDiv()">Submit URL</button>
+        </form>
+        {% if downloadUrl %}
+        <div id="showImage">
+          <img class="img-rounded" src="{{ downloadUrl }}" alt="Image Name" width="400" height="300">
+          <div style="margin-top:2%;">
+            <a href="{{ downloadUrl }}" download="{{ downloadUrl }}" id="imageLink"></a>
+        <!-- Button trigger modal -->
+            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal" id="saveImageButton">
+              Save Image
+            </button>
+            <button class="btn btn-warning" id="reportImageButton">Report Image</button> <!-- Button to report url -->
+          </div>
+          {% endif %}
         </div>
-        {% endif %}
       </div>
-    </div>
-</body>
-<script>
-var date = new Date();
-var imgSrc = $("#imageLink").attr('src');
-imgName = 'INSTA_' + data.getHours() + date.getSeconds() + imgSrc.substring(imgSrc.lastIndexOf('.'));
-console.log(imgName);
-$("#imageLink").attr("download",imgName);
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Download Pic ?</h4>
+            </div>
+            <div class="modal-body">
+              Hit <strong>Save</strong> to save the Pic!
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onclick="CloseModalOnSave()">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </body>
+  <script>
 $(document).ready(function(){
   $("#instagramButton").click(function(){
     $("#inputUrlField").attr("placeholder","Enter Insta Pic URL");
@@ -69,14 +86,24 @@ $(document).ready(function(){
   $("#flickrButton").click(function(){
     $("#inputUrlField").attr("placeholder","Enter Flickr Pic URL");
   });
- 
+
   $("#saveImageButton").click(function(e){
-    console.log('glitch');
+
     e.preventDefault();
   });
 
 }); 
-// end of ready function
+//end of ready function
 
-</script>
+//function to save image and close modal
+function CloseModalOnSave(){
+  var url     = "download/v1?urlvalue="+ $("#imageLink").attr('href');
+  var link    = document.createElement("a");
+  link.href   = url;
+  link.click();
+  $(".modal").modal("hide");
+
+}
+
+  </script>
 </html>
