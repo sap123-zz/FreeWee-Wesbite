@@ -23,6 +23,10 @@ def DownloadImage():
     filename = GetFileName(url)
     return send_file(BytesIO(resp), mimetype="image/jpeg", attachment_filename=filename, as_attachment=True)
 
+@app.route('/songs',methods=['GET'])
+def songs():
+    return render_template('downloadsongs.html')
+
 
 if __name__ == '__main__':
     if IS_OPENSHIFT:
