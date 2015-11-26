@@ -1,0 +1,55 @@
+{% extends "header.html" %}
+{% block body %}
+
+<link rel="stylesheet" href="../static/css/index.css">
+<link rel="stylesheet" href="../static/css/songs_style.css">
+<div class="container">
+  <div id="inputSong" class="form-group">
+    <form class="form-inline">
+      <div class="form-group">
+        <input type="text" class="form-control" id="songNameInput" placeholder="enter song name">
+      </div>
+      <button type="button" class="btn btn-default" onclick="SearchSong()">Submit</button>
+    </form>
+  </div>
+  <center>
+    <div id="playerTable">
+      <table id="songTable" class="table table-striped">
+        <col width="50">
+        <col width="700">
+        <col width="50">
+        <tr></tr>
+      </table>
+    </div>
+  </center>
+</div> <!-- end of container -->
+
+<div class="footer">
+  <div class="back"></div>
+  <div class="soundPlayer">
+    <div class="playerButton transparentButton">
+      <button class="transparentButton" onclick="play_pauseSong()" data-toggle="tooltip" data-placement="top" title="Play/Pause">
+        <span id="playpauseButton" class="glyphicon glyphicon-pause"></span>
+      </button>
+      <button class="transparentButton" onclick="stopSong()" data-toggle="tooltip" data-placement="top" title="Stop Song">
+        <span id="stopbutton" class="glyphicon glyphicon-stop"></span>
+      </button>
+    </div>
+    <div class="stime">
+      <span id="startTime">00:00</span>
+    </div>
+    <div class="bar">
+      <div id="pbar"></div>
+    </div>
+    <div class="etime">
+      <span id="endTime">00:00</span>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
+<script src="../static/js/songs_scripts.js"></script>
+<script src="../static/js/songs_functions.js"></script>
+{% endblock %}

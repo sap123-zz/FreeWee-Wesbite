@@ -1,0 +1,93 @@
+::-webkit-scrollbar{
+  width: 12px;
+}
+::-webkit-scrollbar-track{
+  -webkit-box-shadow : inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius : 10px;
+}
+::-webkit-scrollbar-thumb{
+  border-radius : 10px;
+  -webkit-box-shadow : inset 0 0 6px rgba(0,0,0,0.5);
+}
+.container {
+}
+.glyphicon-play, .glyphicon-download, .glyphicon-pause, .glyphicon-stop {
+  font-size : 30px;
+}
+.transparentButton {
+  background-color  : Transparent;
+  background-repeat : no-repeat;
+  border : none;
+  cursor : pointer;
+  outline : none;
+  display : inline;
+}
+.soundPlayer {
+    width : 100%;
+    position : relative;
+    background : #DBDDDE;
+    height : 45px;
+}
+.back{
+    background : #DBDDDE;
+    height : 20px;
+    text-align : center;
+    color : #007AFF;
+    font-size : 16px;
+}
+.playerButton{
+    float:left;
+    width : 10%;
+		margin-left : 3%;
+    margin-top : -8px;
+}
+.stime {
+    float:left;
+    width : 5%;
+}
+.bar {
+    float:left;
+    width : 70%;
+    margin-top : 8px;
+}
+.etime{
+    float:left;
+    width: 5%;
+    margin-left : 2%;
+}
+
+#progressbarTrack {
+  background-color : #f50;
+  height : 1px;
+  width : 0px;
+}
+#playerTable{
+  width : 350px;
+  height: 70%;
+  overflow-y : auto;
+}
+#songTable {
+  text-align : center;
+}
+#inputSong{
+  text-align : center;
+margin-top:2%;
+}
+#songNameInput {
+  width : 300px;
+}
+#pbar{
+    background-color : #f50;
+    height : 1px;
+    width : 0px;
+}
+#stopButton{
+	margin-left: 2%;
+}
+#startTime {
+  color : #f50;
+}
+
+
+
+
