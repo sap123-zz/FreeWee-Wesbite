@@ -1,5 +1,5 @@
 from io import BytesIO
-import urllib2
+import json
 
 from flask import Flask,render_template,request,redirect,send_file
 app = Flask(__name__)
@@ -17,7 +17,7 @@ def index():
     if request.method == 'GET':
         return render_template('index.html')
 
-@app.route('/download/v1', methods=['GET'])
+@app.route('/download/pics/v1', methods=['GET'])
 def DownloadImage():
     url = request.args.get('urlvalue','')
     resp = CreateDownload(url)
@@ -26,8 +26,16 @@ def DownloadImage():
 
 @app.route('/songs',methods=['GET'])
 def songs():
-    resp = urllib2.urlopen(url) 
     return render_template('downloadsongs.html')
+
+@app.route('/download/songs/v1',methods=['GET'])
+def DownloadSongs():
+    data  = request.args.get('urlvalue','')
+    jsonValue = json.loads(data)
+    title = str(jsonValue['title'])[:30] + '.mp3'
+    url = str(jsonValue['url'])
+    resp = CreateDownload(url)
+    return send_file(BytesIO(resp), mimetype="audio/mpeg", attachment_filename=title, as_attachment=True)
 
 if __name__ == '__main__':
     if IS_OPENSHIFT:

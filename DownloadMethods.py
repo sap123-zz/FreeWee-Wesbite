@@ -4,7 +4,7 @@ import datetime as time
 from bs4 import BeautifulSoup
 
 def GetFileExtension(URL):
-  formats = ['.jpg','.jpeg','.png']
+  formats = ['.jpg','.jpeg','.png','.mp3']
   for i in formats:
     if (i in URL):
       return i

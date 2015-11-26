@@ -29,9 +29,7 @@ $(document).ready(function() {
         json_array.push({
           "id"             : items.id,
           "title"          : items.title,
-          "content_length" : items.original_content_size,
           "stream_url"     : items.stream_url,
-          "uri"            : items.uri
         });
       }
       json_object.json_array = json_array;        // json object to store json array
@@ -40,7 +38,7 @@ $(document).ready(function() {
         var html = "<tr>" +
           "<td><button onclick='SongClick(this)' class='transparentButton'><span class='glyphicon glyphicon-play' id='track"+ i +"'></span>"+ '&nbsp;' +"</button></td>" 
           + "<td>" + string + "<span>&nbsp;</span></td>" +
-          "<td><button class='transparentButton' onClick='Download(this)'><span class='glyphicon glyphicon-download' id='downloadSong'></span></button></td>" +
+          "<td><button class='transparentButton' onClick='Download(this)' data-toggle='modal' data-target='#myModal'><span class='glyphicon glyphicon-download' id='downloadSong'></span></button></td>" +
           "</tr>";
         $("#songTable > tbody:last-child").append(html);
       }
@@ -57,7 +55,9 @@ $(document).ready(function() {
   }
 
   DownloadSong = function(rowNo){
-
+    var title = json_object['json_array'][rowNo].title ;
+    var stream_url = json_object['json_array'][rowNo].stream_url + '?client_id=eef823eb72081eccc8684bc619021062';
+    SendSongStreamUrl(stream_url, title);
   }
 
 }); // end of document.ready()
@@ -129,4 +129,27 @@ function stopSong(){
   sound.pause();
   sound.currentTime = 0;
   $("#pbar").css('width','0%');
+}
+
+function SendSongStreamUrl(url, title){
+
+  //javascript code to support .click() function in firefox 
+  HTMLElement.prototype.click = function() {
+    var evt = this.ownerDocument.createEvent('MouseEvents');
+    evt.initMouseEvent('click', true, true, this.ownerDocument.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+    this.dispatchEvent(evt);
+  }
+
+  var jsonData = {'title':title,'url':url}
+  var url     = "download/songs/v1?urlvalue=" + encodeURIComponent(JSON.stringify(jsonData));
+  var link    = document.createElement("a");
+  link.href   = url;
+  link.id     = "downloadLink";
+  link.click();
+  $(".modal").modal('hide');
+}
+
+function CloseModal(){
+  console.log('hidden')
+  $(".modal").modal('hide');
 }
