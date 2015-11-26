@@ -1,5 +1,5 @@
 # this file is to write functions to download from various sites
-import requests
+import urllib2
 import datetime as time
 from bs4 import BeautifulSoup
 
@@ -15,8 +15,8 @@ def GetFileName(url):
 
 def DownloadPic(url):
     imgDict = {}
-    htmlText = requests.get(url)
-    soup = BeautifulSoup(htmlText.text)
+    htmlText = urllib2.urlopen(url)
+    soup = BeautifulSoup(htmlText.read())
     for meta in soup.find_all('meta'):
         _property = str(meta.get('property'))
         if _property == 'og:image':
@@ -25,5 +25,6 @@ def DownloadPic(url):
             return imgDict
 
 def CreateDownload(url):
-    resp = requests.get(url)
-    return resp.content
+    resp = urllib2.urlopen(url)
+    return resp.read()
+
