@@ -1,0 +1,34 @@
+.UrlForm {
+  text-align : center;
+  margin-top: 10%;
+}
+.downloadButtons{
+  margin-top:2%;
+  text-align: center;
+}
+.navbarHeader>a:hover{
+  text-decoration : none;
+}
+.navbarList {
+  float : right;
+}
+.navbarProducts {
+  font-size : 22px;
+}
+.navbarProducts:hover{
+  text-decoration:none;
+  color : #FF2A68;
+}
+.appnameHeader{
+  font-size : 30px;
+}
+#reportImageButton{
+  margin-left:5%;
+}
+#inputUrlField{
+  width: 400px;
+}
+#appName{
+  float : left;
+  font-size : 30px;
+}
