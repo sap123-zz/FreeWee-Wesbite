@@ -1,4 +1,5 @@
 from io import BytesIO
+import urllib2
 
 from flask import Flask,render_template,request,redirect,send_file
 app = Flask(__name__)
@@ -25,8 +26,8 @@ def DownloadImage():
 
 @app.route('/songs',methods=['GET'])
 def songs():
+    resp = urllib2.urlopen(url) 
     return render_template('downloadsongs.html')
-
 
 if __name__ == '__main__':
     if IS_OPENSHIFT:
