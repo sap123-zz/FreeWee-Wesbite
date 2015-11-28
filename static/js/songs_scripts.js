@@ -4,6 +4,7 @@ var ClearList;    // function to clear previous json_objects
 var SteamSong;    // function to stream song
 var DownloadSong; // function to download song 
 var playpause = false ; // var to set play pause button
+var downloadSongNum = null;   // var to get the rowNo
 SC.initialize({
   client_id: client_id
 });
@@ -81,7 +82,7 @@ function SongClick(element){
 
 function Download(element){
   var rowNo = element.parentNode.parentNode.rowIndex;
-  DownloadSong(rowNo);
+  downloadSongNum = rowNo;
 }
 
 var streamurl = null; 
@@ -150,6 +151,6 @@ function SendSongStreamUrl(url, title){
 }
 
 function CloseModal(){
-  console.log('hidden')
   $(".modal").modal('hide');
+  DownloadSong(downloadSongNum);
 }
