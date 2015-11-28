@@ -1,5 +1,6 @@
 from io import BytesIO
 import json
+import soundcloud
 
 from flask import Flask,render_template,request,redirect,send_file
 app = Flask(__name__)
@@ -37,6 +38,9 @@ def DownloadSongs():
     resp = CreateDownload(url)
     return send_file(BytesIO(resp), mimetype="audio/mpeg", attachment_filename=title, as_attachment=True)
 
+@app.route('/version',methods=['GET'])
+def vesrion():
+    return render_template('test.html')
 if __name__ == '__main__':
     if IS_OPENSHIFT:
         app.run()
