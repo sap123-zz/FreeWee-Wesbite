@@ -15,7 +15,12 @@ def GetFileName(url):
 
 def DownloadPic(url):
     imgDict = {}
-    htmlText = urllib2.urlopen(url)
+    htmlText = ""
+    try:
+        htmlText = urllib2.urlopen(url)
+    except Exception as e:
+        #print e error handled
+        return
     soup = BeautifulSoup(htmlText.read())
     for meta in soup.find_all('meta'):
         _property = str(meta.get('property'))
@@ -25,6 +30,10 @@ def DownloadPic(url):
             return imgDict
 
 def CreateDownload(url):
-    resp = urllib2.urlopen(url)
-    return resp.read()
+    try:
+        resp = urllib2.urlopen(url)
+        return resp.read()
+    except Exception as e:
+        #print e error handled
+        return 
 
