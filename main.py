@@ -1,12 +1,12 @@
 from io import BytesIO
 import json
-import soundcloud
 
-from flask import Flask,render_template,request,redirect,send_file
+from flask import Flask,render_template,request,redirect,send_file,jsonify
 app = Flask(__name__)
 
 from DownloadMethods import DownloadPic, CreateDownload, GetFileName
 from Platform import IS_OPENSHIFT
+from buildapi import BuildApi
 
 @app.route('/',methods=['GET','POST'])
 def index():
@@ -38,9 +38,15 @@ def DownloadSongs():
     resp = CreateDownload(url)
     return send_file(BytesIO(resp), mimetype="audio/mpeg", attachment_filename=title, as_attachment=True)
 
-@app.route('/version',methods=['GET'])
-def vesrion():
-    return render_template('test.html')
+@app.route('/api/v1/songs/<query>',methods=['GET'])
+def version(query):
+    return jsonify({"result":BuildApi(query)})
+
+@app.route('/api/v1/pic')
+def instaApi():
+    url = request.args.get('urlvalue','')
+    return jsonify(DownloadPic(str(url)))
+
 if __name__ == '__main__':
     if IS_OPENSHIFT:
         app.run()
