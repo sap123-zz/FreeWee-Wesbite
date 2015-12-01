@@ -33,7 +33,7 @@ def songs():
 def DownloadSongs():
     data  = request.args.get('urlvalue','')
     jsonValue = json.loads(data)
-    title = str(jsonValue['title'])[:30] + '.mp3'
+    title = jsonValue['title'].encode('utf-8')[:30] + '.mp3'
     url = str(jsonValue['url'])
     resp = CreateDownload(url)
     return send_file(BytesIO(resp), mimetype="audio/mpeg", attachment_filename=title, as_attachment=True)

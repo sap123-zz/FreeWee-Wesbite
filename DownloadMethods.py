@@ -19,7 +19,7 @@ def DownloadPic(url):
     try:
         htmlText = urllib2.urlopen(url)
     except Exception as e:
-        #print e error handled
+        #print e #error handled
         return
     soup = BeautifulSoup(htmlText.read())
     for meta in soup.find_all('meta'):
@@ -34,6 +34,6 @@ def CreateDownload(url):
         resp = urllib2.urlopen(url)
         return resp.read()
     except Exception as e:
-        #print e error handled
+        #print e #error handled
         return 
 
