@@ -38,10 +38,14 @@ def DownloadSongs():
     resp = CreateDownload(url)
     return send_file(BytesIO(resp), mimetype="audio/mpeg", attachment_filename=title, as_attachment=True)
 
-@app.route('/api/v1/songs/<query>',methods=['GET'])
-def version(query):
-    return jsonify({"result":BuildApi(query)})
+#api to get json of songs with query
+#http://imgdownload-searchall.rhcloud.com/api/v1/songs/tum%20sath%20ho
+@app.route('/api/v1/songs',methods=['GET'])
+def version():
+    songName = request.args.get('urlvalue','')
+    return jsonify({"result":BuildApi(songName)})
 
+#api to get json of insta pic url with query as shareurl of instagram pic
 @app.route('/api/v1/pic')
 def instaApi():
     url = request.args.get('urlvalue','')
