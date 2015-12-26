@@ -11,11 +11,16 @@ def BuildJsonApi(tracks,error):
     else:
         for i in range(len(tracks)):
             items = tracks[i]
+            artworkUrl = ""
+            if items.artwork_url:
+                artworkUrl = items.artwork_url
+            else:
+                artworkUrl = ""
             json_array.append({
                     "id"         : items.id,
                     "title"      : items.title,
                     "stream_url" : items.stream_url,
-                    "artwork_url": items.artwork_url
+                    "artwork_url": artworkUrl
                 })
         return json_array
 
