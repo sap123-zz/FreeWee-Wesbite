@@ -7,6 +7,7 @@ app = Flask(__name__)
 from DownloadMethods import DownloadPic, CreateDownload, GetFileName
 from Platform import IS_OPENSHIFT
 from buildapi import BuildApi
+from TestProto import songData
 
 @app.route('/',methods=['GET','POST'])
 def index():
@@ -51,6 +52,10 @@ def instaApi():
     url = request.args.get('urlvalue','')
     return jsonify(DownloadPic(str(url)))
 
+#this route contains default data of songs api
+@app.route('/api/default/songs')
+def default():
+    return str(songData)
 if __name__ == '__main__':
     if IS_OPENSHIFT:
         app.run()
