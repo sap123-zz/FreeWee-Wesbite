@@ -4,7 +4,7 @@ import json
 from flask import Flask,render_template,request,redirect,send_file,jsonify
 app = Flask(__name__)
 
-from DownloadMethods import DownloadPic, CreateDownload, GetFileName
+from DownloadMethods import DownloadPic, CreateDownload, GetFileName,GetMimeType
 from Platform import IS_OPENSHIFT
 from buildapi import BuildApi
 from TestProto import songData
@@ -24,7 +24,8 @@ def DownloadImage():
     url = request.args.get('urlvalue','')
     resp = CreateDownload(url)
     filename = GetFileName(url)
-    return send_file(BytesIO(resp), mimetype="image/jpeg", attachment_filename=filename, as_attachment=True)
+    mimeType = GetMimeType(url)
+    return send_file(BytesIO(resp), mimetype=mimeType, attachment_filename=filename, as_attachment=True)
 
 @app.route('/songs',methods=['GET'])
 def songs():
