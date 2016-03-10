@@ -8,6 +8,7 @@ from DownloadMethods import DownloadPic, CreateDownload, GetFileName,GetMimeType
 from Platform import IS_OPENSHIFT
 from buildapi import BuildApi
 from TestProto import songData
+from Songspk import *
 
 @app.route('/',methods=['GET','POST'])
 def index():
@@ -47,6 +48,11 @@ def version():
     songName = request.args.get('urlvalue','')
     return jsonify({"result":BuildApi(songName)})
 
+@app.route('/api/v1/bolly_songs',methods=['GET'])
+def bolly_api():
+    movieName = request.args.get('urlvalue','')
+    return jsonify({"result":GetSongsList(movieName)})
+
 #api to get json of insta pic url with query as shareurl of instagram pic
 @app.route('/api/v1/pic')
 def instaApi():
@@ -57,6 +63,7 @@ def instaApi():
 @app.route('/api/default/songs')
 def default():
     return str(songData)
+
 if __name__ == '__main__':
     if IS_OPENSHIFT:
         app.run()
