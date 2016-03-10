@@ -2,6 +2,7 @@
 import urllib2
 import datetime as time
 from bs4 import BeautifulSoup
+import json
 
 def GetFileExtension(URL):
   formats = ['.jpg','.jpeg','.png','.mp3','.mp4']
@@ -57,3 +58,4 @@ def GetMimeType(url):
 
 #url_video = 'https://www.instagram.com/p/_6QQJujJ9Z/?taken-by=9gag'
 #url_image = 'https://www.instagram.com/p/_6CzIljJ7e/?taken-by=9gag'
+
