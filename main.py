@@ -21,6 +21,10 @@ def index():
     if request.method == 'GET':
         return render_template('index.html')
 
+@app.route('/about_us',methods=['GET'])
+def aboutUs():
+    return render_template('about_us.html')
+
 @app.route('/download/pics/v1', methods=['GET'])
 def DownloadImage():
     url = request.args.get('urlvalue','')
