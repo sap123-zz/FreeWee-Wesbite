@@ -1,7 +1,8 @@
 from io import BytesIO
 import json
+import os
 
-from flask import Flask,render_template,request,redirect,send_file,jsonify
+from flask import Flask,render_template,request,redirect,send_file,jsonify,send_from_directory
 app = Flask(__name__)
 
 from DownloadMethods import DownloadPic, CreateDownload, GetFileName,GetMimeType
@@ -74,6 +75,10 @@ def instaApi():
 @app.route('/api/default/songs')
 def default():
     return str(songData)
+
+@app.route('/download/apk')
+def android_apk():
+    return send_file(BytesIO('/static/android_apk/app-debug.apk'),attachment_filename="apk",as_attachment=True)
 
 if __name__ == '__main__':
     if IS_OPENSHIFT:
