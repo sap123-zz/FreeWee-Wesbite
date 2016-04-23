@@ -78,7 +78,7 @@ def default():
 
 @app.route('/download/apk')
 def android_apk():
-    return send_file(BytesIO('/static/android_apk/app-debug.apk'),attachment_filename="apk",as_attachment=True)
+    return send_file(BytesIO('/static/android_apk/app-debug.apk'),attachment_filename="freewee.apk",as_attachment=True)
 
 if __name__ == '__main__':
     if IS_OPENSHIFT:
