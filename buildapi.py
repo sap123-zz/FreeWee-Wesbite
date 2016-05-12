@@ -3,6 +3,10 @@ import soundcloud
 
 client_id = 'eef823eb72081eccc8684bc619021062'
 
+def MillisecondsToDate(milliseconds):
+    seconds = (milliseconds/1000)%60
+    minutes = (milliseconds/(1000*60))%60
+    return str(minutes) + ":" + str(seconds)
 def BuildJsonApi(tracks,error):
 #the json given by soundcloud is decoded into required format
     json_array  = []
@@ -20,7 +24,8 @@ def BuildJsonApi(tracks,error):
                     "id"         : items.id,
                     "title"      : items.title,
                     "stream_url" : items.stream_url,
-                    "artwork_url": artworkUrl
+                    "artwork_url": artworkUrl,
+                    "duration"   : MillisecondsToDate(items.duration)
                 })
         return json_array
 
