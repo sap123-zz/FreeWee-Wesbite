@@ -3,3 +3,4 @@
 *.pyc~
 .gitignore
 static/images/
+static/android_apk/
