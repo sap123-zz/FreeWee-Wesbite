@@ -8,7 +8,7 @@ def MillisecondsToDate(milliseconds):
     minutes = (milliseconds/(1000*60))%60
     if(seconds < 10 ):
         seconds = "0" + str(seconds)
-    return str(minutes) + ":" + seconds
+    return str(minutes) + ":" + str(seconds)
 
 def BuildJsonApi(tracks,error):
 #the json given by soundcloud is decoded into required format
