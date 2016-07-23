@@ -80,6 +80,14 @@ def default():
 def android_apk():
     return send_file(BytesIO('/static/android_apk/app-release.apk'),attachment_filename="freewee.apk",as_attachment=True)
 
+@app.route('/post/newuser',methods=['POST'])
+def register_newUser():
+    if request.method == 'POST':
+        print request.form.get('fname')
+        di = request.form.to_dict()
+        print di
+        return 'post' 
+
 if __name__ == '__main__':
     if IS_OPENSHIFT:
         app.run()
