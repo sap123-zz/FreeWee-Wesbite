@@ -46,6 +46,10 @@ $(document).ready(function() {
     }); 
   } // end of SearchSong()
 
+  SearchBySongName = function(input){
+    Console.log('inside song name');
+  }
+
   StreamSong = function(rowNo){
     var title = json_object['json_array'][rowNo].title ;
     var stream_url = json_object['json_array'][rowNo].stream_url + '?client_id=eef823eb72081eccc8684bc619021062';
@@ -59,6 +63,10 @@ $(document).ready(function() {
     var title = json_object['json_array'][rowNo].title ;
     var stream_url = json_object['json_array'][rowNo].stream_url + '?client_id=eef823eb72081eccc8684bc619021062';
     SendSongStreamUrl(stream_url, title);
+  }
+
+  SearchByMovieName = function(input){
+    console.log(input);
   }
 
 }); // end of document.ready()

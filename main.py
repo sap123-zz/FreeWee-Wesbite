@@ -5,7 +5,7 @@ import os
 from flask import Flask,render_template,request,redirect,send_file,jsonify,send_from_directory
 app = Flask(__name__)
 
-from DownloadMethods import DownloadPic, CreateDownload, GetFileName,GetMimeType
+from DownloadMethods import DownloadPic, CreateDownload, GetFileName,GetMimeType,getFilteredUrlList
 from Platform import IS_OPENSHIFT
 from buildapi import BuildApi
 from TestProto import songData
@@ -58,6 +58,11 @@ def version():
 def bolly_api():
     movieName = request.args.get('urlvalue','')
     return jsonify({"result":GetSongsList(movieName)})
+
+@app.route('/api/v1/moviesongs',methods=['GET'])
+def movieSongs():
+    movieName = request.args.get('moviename','')
+    return jsonify({"result":getFilteredUrlList(movieName)})
 
 @app.route('/api/v1/sc_playlists',methods=['GET'])
 def playlists():
