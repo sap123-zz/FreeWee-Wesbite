@@ -61,7 +61,10 @@ def urlList(url):
     url_list = []
     soup = soupResponse(url);
     for link in soup.find_all('a',href=True):
-        url_list.append(link['href'])
+        url_list.append({
+            'href':link['href'],
+            'text':link.text.lower()
+            })
     return url_list
 
 def getUrl(word):
@@ -72,8 +75,8 @@ def getMatchedResults(word):
     url_list = urlList(url_to_search)
     url_matched_result_list = []
     for link in url_list:
-        if word in str(link):
-            url_matched_result_list.append(str(domain_url) + str(link))
+        if word in link['text']:
+            url_matched_result_list.append(str(domain_url) + str(link['href']))
     return url_matched_result_list
 
 def getFilteredUrlList(word):
