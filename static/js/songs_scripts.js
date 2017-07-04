@@ -5,6 +5,8 @@ var SteamSong;    // function to stream song
 var DownloadSong; // function to download song 
 var playpause = false ; // var to set play pause button
 var downloadSongNum = null;   // var to get the rowNo
+var songSearchCriteriaBySongName = true;
+var songsBymovieName ;
 SC.initialize({
   client_id: client_id
 });
@@ -21,7 +23,8 @@ $(document).ready(function() {
     $("#songTable tr").remove();
   }
   SearchSong = function(input){
-    SC.get('/tracks',{
+    if(songSearchCriteriaBySongName){
+      SC.get('/tracks',{
       q: input 
     }).then(function(tracks){
       length = tracks.length;
@@ -44,15 +47,24 @@ $(document).ready(function() {
         $("#songTable > tbody:last-child").append(html);
       }
     }); 
+  }else{
+    var value = $("#songNameInput").val();
+    SearchSongByMovieName(value);
+  }
+    
   } // end of SearchSong()
 
-  SearchBySongName = function(input){
-    Console.log('inside song name');
-  }
-
   StreamSong = function(rowNo){
-    var title = json_object['json_array'][rowNo].title ;
-    var stream_url = json_object['json_array'][rowNo].stream_url + '?client_id=eef823eb72081eccc8684bc619021062';
+    var title;
+    var streamurl;
+    if(songSearchCriteriaBySongName){
+       title = json_object['json_array'][rowNo].title ;
+      stream_url = json_object['json_array'][rowNo].stream_url + '?client_id=eef823eb72081eccc8684bc619021062';
+    }else{
+      title = songsBymovieName.result[rowNo].title;
+      stream_url = songsBymovieName.result[rowNo].url;
+    }
+    
     playpause = true;
     $(".footer").show();
     $(".back").text(title);
@@ -60,8 +72,15 @@ $(document).ready(function() {
   }
 
   DownloadSong = function(rowNo){
-    var title = json_object['json_array'][rowNo].title ;
-    var stream_url = json_object['json_array'][rowNo].stream_url + '?client_id=eef823eb72081eccc8684bc619021062';
+     var title;
+      var streamurl;
+    if(songSearchCriteriaBySongName){
+       title = json_object['json_array'][rowNo].title ;
+      stream_url = json_object['json_array'][rowNo].stream_url + '?client_id=eef823eb72081eccc8684bc619021062';
+    }else{
+      title = songsBymovieName.result[rowNo].title;
+      stream_url = songsBymovieName.result[rowNo].url;
+    }
     SendSongStreamUrl(stream_url, title);
   }
 
@@ -79,7 +98,9 @@ $("#songNameInput").keyup(function(){
     //nothing in search bar
   }
   else{
-    SearchSong(value);
+    if(songSearchCriteriaBySongName){
+      SearchSong(value);
+    }
   }
 });
 
@@ -161,4 +182,36 @@ function SendSongStreamUrl(url, title){
 function CloseModal(){
   $(".modal").modal('hide');
   DownloadSong(downloadSongNum);
+}
+
+$('.songSearchRadio').change(function(){
+var value = $(this).val();
+  if(value == "searchBySong"){
+    //then call SC
+    songSearchCriteriaBySongName = true;
+  }else{
+    songSearchCriteriaBySongName = false;
+  }
+});
+
+function SearchSongByMovieName(movie){
+  console.log(movie);
+  var saveData = $.ajax({
+      type: 'GET',
+      url: "/api/v1/moviesongs?moviename="+movie,
+      contentType: "application/json",
+      success: function(resultData) { 
+        songsBymovieName = resultData;
+        for(var i =0;i<resultData.result.length;i++){
+          var html = "<tr>" +
+          "<td><button onclick='SongClick(this)' class='transparentButton'><span class='glyphicon glyphicon-play' id='track"+ i +"'></span>"+ '&nbsp;' +"</button></td>" 
+          + "<td>" + resultData.result[i].title + "<span>&nbsp;</span></td>" +
+          "<td><button class='transparentButton' onClick='Download(this)' data-toggle='modal' data-target='#myModal'><span class='glyphicon glyphicon-download' id='downloadSong'></span></button></td>" +
+          "</tr>";
+        $("#songTable > tbody:last-child").append(html);
+        }
+      }
+});
+saveData.error(function() { alert("Something went wrong"); });
+//console.log(saveData);
 }
