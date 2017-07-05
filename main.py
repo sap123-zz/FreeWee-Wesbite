@@ -5,7 +5,7 @@ import os
 from flask import Flask,render_template,request,redirect,send_file,jsonify,send_from_directory
 app = Flask(__name__)
 
-from DownloadMethods import DownloadPic, CreateDownload, GetFileName,GetMimeType,getFilteredUrlList
+from DownloadMethods import DownloadPic, CreateDownload, GetFileName,GetMimeType,getFilteredUrlList,getSongDowloadUrl
 from Platform import IS_OPENSHIFT
 from buildapi import BuildApi
 from TestProto import songData
@@ -17,8 +17,7 @@ def index():
     if request.method=='POST':
         url = str(request.form['url'])
         downloadUrl = DownloadPic(url)
-        return render_template('index.html', downloadUrl = downloadUrl['picURL'])
-        
+        return render_template('index.html', downloadUrl = downloadUrl['picURL'])        
     if request.method == 'GET':
         return render_template('index.html')
 
@@ -43,7 +42,7 @@ def DownloadSongs():
     data  = request.args.get('urlvalue','')
     jsonValue = json.loads(data)
     title = jsonValue['title'].encode('utf-8')[:30] + '.mp3'
-    url = str(jsonValue['url'])
+    url = getSongDowloadUrl(str(jsonValue['url']))
     resp = CreateDownload(url)
     return send_file(BytesIO(resp), mimetype="audio/mpeg", attachment_filename=title, as_attachment=True)
 

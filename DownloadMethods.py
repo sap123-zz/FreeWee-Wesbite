@@ -76,7 +76,7 @@ def getMatchedResults(word):
     url_matched_result_list = []
     for link in url_list:
         if word in link['text']:
-            url_matched_result_list.append(str(domain_url) + str(link['href']))
+            url_matched_result_list.append(str(songsMp3DomainUrl) + str(link['href']))
     return url_matched_result_list
 
 def getFilteredUrlList(word):
@@ -104,10 +104,20 @@ def downloadList(list,songs_title):
         string = str(list[index])
         print string
         final_download_list.append({
-            'url':domain_url + string[string.index('/files/'):string.index('.mp3')] + '.mp3',
+            'url':songsMp3DomainUrl + string[string.index('/files/'):string.index('.mp3')] + '.mp3',
             'title':str(songs_title[index])
             })
     return final_download_list
+
+def getSongDowloadUrl(songUrl):
+    url = "";
+    if('/tracks/' in songUrl):
+        url = soundCloudURL + songUrl + soundCloudEndUrl
+        print 'scloud main url: ' + soundCloudURL
+        print 'url: ' + url
+    else:
+        url = songsMp3DomainUrl + songUrl
+    return url
 
 #print getFilteredUrlList('gangster')
 

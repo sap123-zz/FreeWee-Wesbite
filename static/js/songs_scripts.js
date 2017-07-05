@@ -7,6 +7,10 @@ var playpause = false ; // var to set play pause button
 var downloadSongNum = null;   // var to get the rowNo
 var songSearchCriteriaBySongName = true;
 var songsBymovieName ;
+
+//https://api.soundcloud.com/tracks/49577842/stream?client_id=eef823eb72081eccc8684bc619021062
+//https://www.songsmp3.co/files/data/4724/03 Madad Al Madad - Qawaali.mp3
+
 SC.initialize({
   client_id: client_id
 });
@@ -72,16 +76,18 @@ $(document).ready(function() {
   }
 
   DownloadSong = function(rowNo){
-     var title;
+      var title;
       var streamurl;
     if(songSearchCriteriaBySongName){
-       title = json_object['json_array'][rowNo].title ;
-      stream_url = json_object['json_array'][rowNo].stream_url + '?client_id=eef823eb72081eccc8684bc619021062';
+        title = json_object['json_array'][rowNo].title ;
+        stream_url = json_object['json_array'][rowNo].stream_url;
     }else{
       title = songsBymovieName.result[rowNo].title;
       stream_url = songsBymovieName.result[rowNo].url;
     }
-    SendSongStreamUrl(stream_url, title);
+    var url = getShortenedUrl(stream_url);
+    console.log(url);
+    SendSongStreamUrl(url, title);
   }
 
   SearchByMovieName = function(input){
@@ -90,6 +96,18 @@ $(document).ready(function() {
 
 }); // end of document.ready()
 
+function getShortenedUrl(url){
+  var sCloud = "https://api.soundcloud.com";
+  var songsMp3 = "https://www.songsmp3.co";
+  var streamUrl = null;
+  if(url.startsWith(sCloud)){
+    streamUrl = url.substring(sCloud.length);
+  }else{
+    streamUrl = url.substring(songsMp3.length);
+  }
+  console.log('shortened: ' + streamUrl);
+  return streamUrl;
+}
 
 $("#songNameInput").keyup(function(){
   ClearList();
@@ -176,6 +194,7 @@ function SendSongStreamUrl(url, title){
   link.href   = url;
   link.id     = "downloadLink";
   link.click();
+  console.log('url: ' + url);
   $(".modal").modal('hide');
 }
 
