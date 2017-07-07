@@ -102,7 +102,6 @@ def downloadList(list,songs_title):
     final_download_list = [] 
     for index in range(len(list)):
         string = str(list[index])
-        print string
         final_download_list.append({
             'url':songsMp3DomainUrl + string[string.index('/files/'):string.index('.mp3')] + '.mp3',
             'title':str(songs_title[index])
@@ -113,8 +112,6 @@ def getSongDowloadUrl(songUrl):
     url = "";
     if('/tracks/' in songUrl):
         url = soundCloudURL + songUrl + soundCloudEndUrl
-        print 'scloud main url: ' + soundCloudURL
-        print 'url: ' + url
     else:
         url = songsMp3DomainUrl + songUrl
     return url
