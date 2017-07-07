@@ -61,7 +61,7 @@ def bolly_api():
 @app.route('/api/v1/moviesongs',methods=['GET'])
 def movieSongs():
     movieName = request.args.get('moviename','')
-    return jsonify({"result":getFilteredUrlList(movieName)})
+    return jsonify({"result":getFilteredUrlList(movieName.lower())})
 
 @app.route('/api/v1/sc_playlists',methods=['GET'])
 def playlists():
