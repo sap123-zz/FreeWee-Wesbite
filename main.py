@@ -5,7 +5,7 @@ import os
 from flask import Flask,render_template,request,redirect,send_file,jsonify,send_from_directory
 app = Flask(__name__)
 
-from DownloadMethods import DownloadPic, CreateDownload, GetFileName,GetMimeType,getFilteredUrlList,getSongDowloadUrl
+from DownloadMethods import DownloadPic, CreateDownload, GetFileName,GetMimeType,getFilteredUrlList,getSongDowloadUrl,updateDownloadCount
 from Platform import IS_OPENSHIFT
 from buildapi import BuildApi
 from TestProto import songData
@@ -44,6 +44,7 @@ def DownloadSongs():
     title = jsonValue['title'].encode('utf-8')[:30] + '.mp3'
     url = getSongDowloadUrl(str(jsonValue['url']))
     resp = CreateDownload(url)
+    updateDownloadCount()
     return send_file(BytesIO(resp), mimetype="audio/mpeg", attachment_filename=title, as_attachment=True)
 
 #api to get json of songs with query
