@@ -116,6 +116,16 @@ def getSongDowloadUrl(songUrl):
         url = songsMp3DomainUrl + songUrl
     return url
 
+
+def updateDownloadCount():
+    fopen = open("DownloadCount.txt","r+w")
+    count = int(fopen.read())
+    fopen.seek(0)
+    fopen.truncate()
+    ncount = count + 1
+    fopen.write(""+str(ncount))
+    fopen.close()
+    
 #print getFilteredUrlList('gangster')
 
 #url_video = 'https://www.instagram.com/p/_6QQJujJ9Z/?taken-by=9gag'
