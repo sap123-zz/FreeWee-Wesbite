@@ -32,3 +32,9 @@
   float : left;
   font-size : 30px;
 }
+.downloadCount{
+  postion : fixed;
+  bottom : 0;
+  width: 100%;
+  text-align: center;
+}

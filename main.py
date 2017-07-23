@@ -5,7 +5,7 @@ import os
 from flask import Flask,render_template,request,redirect,send_file,jsonify,send_from_directory
 app = Flask(__name__)
 
-from DownloadMethods import DownloadPic, CreateDownload, GetFileName,GetMimeType,getFilteredUrlList,getSongDowloadUrl,updateDownloadCount
+from DownloadMethods import *
 from Platform import IS_OPENSHIFT
 from buildapi import BuildApi
 from TestProto import songData
@@ -14,12 +14,13 @@ from soundcloudPlaylists import *
 
 @app.route('/',methods=['GET','POST'])
 def index():
+    count = getDownloadCount()
     if request.method=='POST':
         url = str(request.form['url'])
         downloadUrl = DownloadPic(url)
-        return render_template('index.html', downloadUrl = downloadUrl['picURL'])        
+        return render_template('index.html', downloadUrl = downloadUrl['picURL'],count = count)        
     if request.method == 'GET':
-        return render_template('index.html')
+        return render_template('index.html',count = count)
 
 @app.route('/about_us',methods=['GET'])
 def aboutUs():
@@ -34,7 +35,7 @@ def DownloadImage():
     return send_file(BytesIO(resp), mimetype=mimeType, attachment_filename=filename, as_attachment=True)
 
 @app.route('/songs',methods=['GET'])
-def songs():
+def songs():  
     return render_template('downloadsongs.html')
 
 @app.route('/download/songs/v1',methods=['GET'])

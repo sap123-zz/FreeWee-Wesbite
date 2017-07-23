@@ -5,6 +5,7 @@ import datetime as time
 from bs4 import BeautifulSoup
 import json
 from Constants import *
+from Utility import openFile
 
 def GetFileExtension(URL):
   formats = ['.jpg','.jpeg','.png','.mp3','.mp4']
@@ -118,13 +119,17 @@ def getSongDowloadUrl(songUrl):
 
 
 def updateDownloadCount():
-    fopen = open("DownloadCount.txt","r+w")
+    fopen = openFile("DownloadCount.txt",READ_AND_WRITE)
     count = int(fopen.read())
     fopen.seek(0)
     fopen.truncate()
     ncount = count + 1
     fopen.write(""+str(ncount))
     fopen.close()
+
+def getDownloadCount():
+    fopen = openFile("DownloadCount.txt",READ)
+    return int(fopen.read())
     
 #print getFilteredUrlList('gangster')
 
